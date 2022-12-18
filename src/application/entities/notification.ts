@@ -2,7 +2,7 @@ import { Replace } from '@helpers/Replace';
 import { Content } from './content';
 import { randomUUID } from 'node:crypto';
 
-interface NotificationProps {
+export interface NotificationProps {
   // id: string;
   recipientId: string;
   content: Content;
@@ -52,13 +52,13 @@ export class Notification {
     return this._props.category;
   }
 
-  // public read() {
-  //   this._props.readAt = new Date();
-  // }
+  public read() {
+    this._props.readAt = new Date();
+  }
 
-  // public unread() {
-  //   this._props.readAt = null;
-  // }
+  public unread() {
+    this._props.readAt = null;
+  }
 
   public set readAt(readAt: Date | null | undefined) {
     this._props.readAt = readAt;
@@ -68,13 +68,13 @@ export class Notification {
     return this._props.readAt;
   }
 
-  // public cancel() {
-  //   this._props.canceledAt = new Date();
-  // }
+  public cancel() {
+    this._props.canceledAt = new Date();
+  }
 
-  // public get canceledAt(): Date | null | undefined {
-  //   return this._props.canceledAt;
-  // }
+  public get canceledAt(): Date | null | undefined {
+    return this._props.canceledAt;
+  }
 
   public get createdAt(): Date {
     return this._props.createdAt;
