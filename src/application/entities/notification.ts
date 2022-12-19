@@ -1,9 +1,8 @@
-import { Replace } from '@helpers/Replace';
-import { Content } from './content';
 import { randomUUID } from 'node:crypto';
+import { Replace } from '../../helpers/Replace';
+import { Content } from './content';
 
 export interface NotificationProps {
-  // id: string;
   recipientId: string;
   content: Content;
   category: string;
@@ -13,12 +12,15 @@ export interface NotificationProps {
 }
 
 export class Notification {
-  private _props: NotificationProps;
   private _id: string;
+  private props: NotificationProps;
 
-  constructor(props: Replace<NotificationProps, { createdAt?: Date }>) {
-    this._id = randomUUID();
-    this._props = {
+  constructor(
+    props: Replace<NotificationProps, { createdAt?: Date }>,
+    id?: string,
+  ) {
+    this._id = id ?? randomUUID();
+    this.props = {
       ...props,
       createdAt: props.createdAt ?? new Date(),
     };
@@ -29,54 +31,50 @@ export class Notification {
   }
 
   public set recipientId(recipientId: string) {
-    this._props.recipientId = recipientId;
+    this.props.recipientId = recipientId;
   }
 
   public get recipientId(): string {
-    return this._props.recipientId;
+    return this.props.recipientId;
   }
 
   public set content(content: Content) {
-    this._props.content = content;
+    this.props.content = content;
   }
 
   public get content(): Content {
-    return this._props.content;
+    return this.props.content;
   }
 
   public set category(category: string) {
-    this._props.category = category;
+    this.props.category = category;
   }
 
   public get category(): string {
-    return this._props.category;
+    return this.props.category;
   }
 
   public read() {
-    this._props.readAt = new Date();
+    this.props.readAt = new Date();
   }
 
   public unread() {
-    this._props.readAt = null;
-  }
-
-  public set readAt(readAt: Date | null | undefined) {
-    this._props.readAt = readAt;
+    this.props.readAt = null;
   }
 
   public get readAt(): Date | null | undefined {
-    return this._props.readAt;
+    return this.props.readAt;
   }
 
   public cancel() {
-    this._props.canceledAt = new Date();
+    this.props.canceledAt = new Date();
   }
 
   public get canceledAt(): Date | null | undefined {
-    return this._props.canceledAt;
+    return this.props.canceledAt;
   }
 
   public get createdAt(): Date {
-    return this._props.createdAt;
+    return this.props.createdAt;
   }
 }
